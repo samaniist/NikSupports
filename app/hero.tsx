@@ -1,5 +1,6 @@
 'use client';
 import Icon from './ui-icon';
+import useVideoPrime from './use-video-prime';
 import {useEffect,useRef,useState} from 'react';
 import About from './about';
 import Needs from './needs';
@@ -12,10 +13,11 @@ export default function Hero(){
  const [preferred,setPreferred]=useState<number|null>(null);
  const [motion,setMotion]=useState(true); const [failed,setFailed]=useState(false);
  useEffect(()=>{const media=matchMedia('(prefers-reduced-motion: reduce)');const update=()=>setMotion(!media.matches);update();media.addEventListener('change',update);return()=>media.removeEventListener('change',update)},[]);
+ useVideoPrime(video,motion);
  useEffect(()=>{const el=scene.current,v=video.current;if(!el||!v)return;let raf=0,target=0;
  const seek=()=>{if(v.readyState>=1&&!v.seeking&&Number.isFinite(v.duration)&&Math.abs(v.currentTime-target)>0.045)v.currentTime=target;};
  const draw=()=>{raf=0;const r=el.getBoundingClientRect();const p=motion?Math.min(1,Math.max(0,-r.top/Math.max(1,el.offsetHeight-innerHeight))):0;el.querySelector<HTMLElement>('.intro')!.inert=p>.4;el.querySelector<HTMLElement>('.second')!.inert=p<.55;el.style.setProperty('--progress',String(p));el.style.setProperty('--fade',String(Math.max(0,1-p*2.5)));el.style.setProperty('--reveal',String(Math.min(1,Math.max(0,(p-.45)*3))));target=p*Math.max(0,(v.duration||0)-.08);seek();};
- const schedule=()=>{if(!raf)raf=requestAnimationFrame(draw)};window.addEventListener('scroll',schedule,{passive:true});window.addEventListener('resize',schedule);v.addEventListener('loadedmetadata',schedule);v.addEventListener('seeked',seek);draw();return()=>{cancelAnimationFrame(raf);window.removeEventListener('scroll',schedule);window.removeEventListener('resize',schedule);v.removeEventListener('loadedmetadata',schedule);v.removeEventListener('seeked',seek)};
+ const schedule=()=>{if(!raf)raf=requestAnimationFrame(draw)};window.addEventListener('scroll',schedule,{passive:true});window.addEventListener('resize',schedule);v.addEventListener('loadedmetadata',schedule);v.addEventListener('loadeddata',schedule);v.addEventListener('canplay',schedule);v.addEventListener('seeked',seek);draw();return()=>{cancelAnimationFrame(raf);window.removeEventListener('scroll',schedule);window.removeEventListener('resize',schedule);v.removeEventListener('loadedmetadata',schedule);v.removeEventListener('loadeddata',schedule);v.removeEventListener('canplay',schedule);v.removeEventListener('seeked',seek)};
  },[motion]);
  const open=()=>document.getElementById("start-a-conversation")?.scrollIntoView({behavior:motion?"smooth":"instant",block:"start"});
  return <><a className="skip" href="#main">Skip to content</a><header><a className="brand" href="/" aria-label="Nik Supports home"><img className="brand-logo" src="/nik-supports-logo.png" alt="Nik Supports" width={1254} height={1254}/></a><div className="header-note">A little understanding.<br/>A different kind of support.</div><button className="contact-link" onClick={open}>Let’s connect <span><Arrow/></span></button></header>

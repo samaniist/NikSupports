@@ -105,3 +105,25 @@ h1{font-size:clamp(58px,11.8vw,90px)}.intro{top:23%;left:6vw;right:4vw}.intro p{
 
 /* Approved Nik Supports identity */
 .brand{display:flex;align-items:center;letter-spacing:normal;flex-shrink:0}.brand-logo{display:block;object-fit:contain;height:auto}.brand .brand-logo{width:100px;height:100px}.footer-signature>a{display:block;flex-shrink:0;letter-spacing:normal}.footer-signature .brand-logo{width:220px;height:220px}@media(max-height:800px) and (min-width:761px){.brand .brand-logo{width:88px;height:88px}}@media(max-width:760px){.brand .brand-logo{width:82px;height:82px}.footer-signature{align-items:center;gap:22px}.footer-signature .brand-logo{width:145px;height:145px}.footer-signature p{font-size:16px}}
+
+/* Keep the cinematic scenes visible on narrow screens. */
+@media(max-width:760px){
+ .stage{min-height:0;height:100svh}.journey{height:300svh}.journey.still{height:100svh}
+ .film video{object-position:58% center}
+ .film-wash{background:linear-gradient(90deg,#f3eee5c7 0%,#f3eee570 60%,#f3eee518 100%)}
+ .portrait-world{z-index:0}.about-heading,.about-copy,.about-footer{z-index:1}
+ .portrait-bottom,.about-scene[data-chapter="2"] .portrait-bottom{background:linear-gradient(0deg,#f3eee5db 0%,#f3eee58c 40%,#f3eee51a 70%,transparent 100%)}
+ .portrait-world video{object-position:72% center}
+ .about-copy,.about-scene[data-chapter="1"] .about-copy,.about-scene[data-chapter="2"] .about-copy{height:auto;top:46%;bottom:76px;text-align:left}
+ .about-chapter h2{font-size:clamp(38px,10.4vw,62px)}.about-kicker{font-size:14px;margin-bottom:12px}
+ .about-chapter p,.about-scene[data-chapter="2"] .about-chapter p{font-size:18px;line-height:1.4;margin:14px 0}
+ .about-scene[data-chapter="2"] .about-kicker{justify-content:flex-start}
+ .about-chapter .primary{font-size:14px;min-height:48px}.about-chapter .primary svg{width:34px;height:34px;padding:8px}
+ .about-heading{top:108px}.portrait-caption{top:150px}
+}
+@media(max-width:760px) and (max-height:740px){
+ .intro{top:24%}h1{font-size:clamp(42px,11vw,58px)}.intro p{font-size:17px;margin:16px 0}.under-button{font-size:12px}
+ .second{top:26%}.second h2{font-size:clamp(40px,10vw,58px)}
+ .about-copy,.about-scene[data-chapter="1"] .about-copy,.about-scene[data-chapter="2"] .about-copy{top:38%;bottom:64px;height:auto}
+ .about-chapter h2{font-size:36px}.about-chapter p{font-size:16px}.about-kicker{font-size:12px}.about-footer{bottom:10px}
+}
